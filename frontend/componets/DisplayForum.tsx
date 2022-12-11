@@ -2,11 +2,37 @@ import React, { FC, useState } from "react";
 import style from "../styles/Home.module.css";
 import Link from "next/link";
 import { dataAttr } from "../type";
+import axios from "axios";
 
 function DisplayForum({ response }: { response: dataAttr[] }) {
   const [show, setShow] = useState(false);
-  console.log({ response });
 
+  const [answer, setAnswer] = useState("");
+  const [id, setId] = useState<number>();
+  const [a, formerArray] = useState<string[]>([]);
+
+  function submitAnswer(Id: number) {
+    let obj = response.find((res) => res.id === Id);
+    let reqBody = {
+      ...obj,
+      attributes: {
+        ...obj?.attributes,
+        answers: [...a, answer],
+      },
+    };
+    console.log({ reqBody });
+
+    if (!obj) {
+      return alert("Something went wrong");
+    }
+    try {
+      axios.put(`http://localhost:1337/api/strapi-forums/${Id}`, {
+        data: { answers: [...obj.attributes.answers, answer] },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <div>
       <div className={style.topcont}>
@@ -19,19 +45,30 @@ function DisplayForum({ response }: { response: dataAttr[] }) {
         </div>
       </div>
       <h2 className={style.subheading}>Questions</h2>
-      {response.map((response, index) => (
+      {response.map((res, index) => (
         <div key={index}>
           <div className={style.userinfo}>
-            <p>Posted By: {response.attributes.username}</p>
+            <p>Posted By: {res.attributes.username}</p>
           </div>
           <div className={style.questioncont}>
-            <p className={style.question}>{response.attributes.questions}</p>
+            <p className={style.question}>{res.attributes.questions}</p>
           </div>
           <div className={style.answercont}>
             <h2 className={style.subheading}>Answers</h2>
             <div className={style.inputanswer}>
-              <form>
-                <textarea placeholder="Enter your answer" rows={5} />
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setId(res.id);
+                  submitAnswer(res.id);
+                }}
+              >
+                <textarea
+                  placeholder="Enter your answer"
+                  rows={5}
+                  value={answer}
+                  onChange={(e) => setAnswer(e.target.value)}
+                />
                 <button>Post</button>
               </form>
             </div>
@@ -40,14 +77,14 @@ function DisplayForum({ response }: { response: dataAttr[] }) {
             </button>
             {show ? (
               <div className={style.answers}>
-                <div className={style.eachanswer}>
-                  <p className={style.username}>
-                    {response.attributes.answername}
-                  </p>
-                  <p className={style.answertext}>
-                    {response.attributes.answers}
-                  </p>
-                </div>
+                {res.attributes.answers.map((answers, i) => (
+                  <div className={style.eachanswer} key={i}>
+                    <p className={style.username}>
+                      {res.attributes.answername}
+                    </p>
+                    <p className={style.answertext}>{answers}</p>
+                  </div>
+                ))}
               </div>
             ) : null}
           </div>

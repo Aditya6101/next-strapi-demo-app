@@ -1,7 +1,7 @@
 type Attribute = {
   username: string;
   answername: string;
-  answers: string;
+  answers: Array<string>;
   createdAt: Date;
   publishedAt: Date;
   questions: string;
@@ -14,7 +14,12 @@ export type dataAttr = {
   attributes: Attribute;
 };
 
-type ForumRes = {
+export type Question = {
+  title: string;
+  questions: sting;
+};
+
+export type ForumRes = {
   data: dataAttr[];
   meta: {
     pagination: {
