@@ -2,8 +2,11 @@ import { FormEvent, useState } from "react";
 import { createQuestion } from "../pages/api";
 import style from "../styles/Home.module.css";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 function UploadForum() {
+  const { data: session } = useSession();
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
@@ -11,6 +14,8 @@ function UploadForum() {
     const newQuestion = {
       title: name,
       questions: description,
+      answers: [""],
+      username: session?.user?.name,
     };
     createQuestion(newQuestion);
   }
