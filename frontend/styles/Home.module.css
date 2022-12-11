@@ -1,0 +1,109 @@
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  height: 100vh;
+  font-family: monospace;
+}
+/* display forum page */
+.topcont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 8px;
+}
+.topcont button,
+.inputanswer button,
+.formcont button,
+.showanswer {
+  border: none;
+  color: #fff;
+  background: dodgerblue;
+  border-radius: 8px;
+  padding: 10px 15px;
+  outline: none;
+  margin: 8px;
+}
+.topcont button:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+}
+.heading {
+  font-weight: bold;
+}
+.subheading {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.userinfo {
+  font-size: 18px;
+  font-weight: 600;
+}
+.questioncont {
+  min-height: 300px;
+  padding: 15px 14px;
+  box-shadow: 12px 12px 36px rgba(0, 0, 0, 0.12);
+}
+.answercont {
+  min-height: 300px;
+  padding: 5px 3px 5px 15px;
+}
+.answers {
+  height: 300px;
+  overflow-x: scroll;
+}
+.inputanswer {
+  margin-bottom: 8px;
+}
+.inputanswer textarea {
+  width: 100%;
+  resize: none;
+  padding: 5px 8px;
+}
+.showanswer {
+  border: 1px solid dodgerblue;
+  background: #fff;
+  color: dodgerblue;
+  transition: 0.4s ease-in-out;
+}
+.showanswer:hover {
+  background: dodgerblue;
+  color: #fff;
+}
+.eachanswer {
+  border-radius: 15px;
+  background: #e7e7e7;
+  padding: 8px 15px;
+  margin-bottom: 10px;
+}
+.username {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.answertext {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 500;
+}
+/* upload a question page */
+.uploadpage {
+  min-height: 100vh;
+}
+.formcont {
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.uploadform {
+  display: flex;
+  flex-direction: column;
+  min-width: 500px;
+  padding-top: 10px;
+}
+.uploadform input,
+.uploadform textarea {
+  resize: none;
+  width: 100%;
+  margin: 8px;
+  padding: 5px;
+}
